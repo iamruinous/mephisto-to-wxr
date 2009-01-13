@@ -30,11 +30,11 @@ task :export => :environment do
             xml.content(:encoded) { |x| x << a.body_html }
             xml.pubDate a.published_at.rfc2822
             xml.guid "urn:uuid:#{UUID.random_create}", "isPermaLink" => "false"
-            author = a.user.name rescue a.author
+            author = a.user.login
             xml.author author
             xml.dc :creator, author
             a.tags.each do |tag|
-              xml.category tag
+              xml.tag tag
             end
             xml.wp :post_id, a.id
             xml.wp :post_date, a.published_at.strftime("%Y-%m-%d %H:%M:%S")
